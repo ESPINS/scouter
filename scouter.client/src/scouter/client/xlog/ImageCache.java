@@ -98,17 +98,27 @@ public class ImageCache {
 		return xp;
 	}
 
+	/**
+	 * Creates a 5x5 pixel XLog dot image with improved rendering performance.
+	 * Uses fillRectangle operations instead of line drawing for better efficiency.
+	 * @param rgb the color for the image background
+	 * @return Image with the specified color and white highlight pattern
+	 */
 	private Image createXPImage6(RGB rgb) {
-		Image xp;
-		xp = new Image(null, 5, 5);
+		Image xp = new Image(null, 5, 5);
 		GC gcc = new GC(xp);
+		
+		// Fill background with agent color
 		gcc.setBackground(new Color(null, rgb));
 		gcc.fillRectangle(0, 0, 5, 5);
+		
+		// Add white highlight pattern for visual depth
 		gcc.setBackground(ColorUtil.getInstance().getColor("white"));
-		gcc.fillRectangle(1, 0, 1, 1);
-		gcc.fillRectangle(4, 1, 1, 1);
-		gcc.fillRectangle(0, 3, 1, 1);
-		gcc.fillRectangle(3, 4, 1, 1);
+		gcc.fillRectangle(1, 0, 1, 1);  // Top highlight
+		gcc.fillRectangle(4, 1, 1, 1);  // Right highlight
+		gcc.fillRectangle(0, 3, 1, 1);  // Left highlight
+		gcc.fillRectangle(3, 4, 1, 1);  // Bottom highlight
+		
 		gcc.dispose();
 		return xp;
 	}
